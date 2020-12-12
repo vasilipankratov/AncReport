@@ -29,4 +29,4 @@ Donor | Est_Harju | Est_Hiiu | Est_Ida-Viru | Est_Jarva |
 ------|-----------|----------|--------------|-----------|
 you | 16.19 | 13.09 | 14.55 | 14.41 | ...
 
-![map](https://octodex.github.com/images/yaktocat.png)
+![map](https://github.com/vasilipankratov/AncReport/blob/main/001_HarjuEst.png)

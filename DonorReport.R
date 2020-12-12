@@ -1,6 +1,3 @@
-library(stringr)
-library(data.table)
-library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(cowplot)

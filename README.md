@@ -27,6 +27,6 @@ We also plan to use values of sharing with Estonians in different maakond like b
 $Est.dist
 Donor | Est_Harju | Est_Hiiu | Est_Ida-Viru | Est_Jarva |
 ------|-----------|----------|--------------|-----------|
-you | 16.19 | 13.09 | 14.55 | 14.41 | ...
+you | 14.95 | 12.3 | 13.38 | 13.12 | ...
 
 ![map](https://github.com/vasilipankratov/AncReport/blob/main/001_HarjuEst.png)

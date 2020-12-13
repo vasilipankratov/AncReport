@@ -9,7 +9,7 @@ For example, line 23 of the test files says that out of 29524 Estonian from Haju
 
 The DonorFeedbackBackground_v2.Rdata file contains background info to compare the individual in focus to some average values (like average for nations and for Estonians from different maakonds).
 
-The script basically aggregates this data by a) degree of relatedness, b) nationality, c) maakonds for Estonians and Russians.This creates a list of 6 dataframes:
+The R script basically aggregates this data by a) degree of relatedness, b) nationality, c) maakonds for Estonians and Russians.This creates a list of 6 dataframes:
 (nationalities, Estonians by maakonds, Russians by maakonds) x (distant and close relatives). The counts are also normalized by the total number of donors in each give group. Then the individual data are combined with average Joes for comparison. This results in matrices of the following type
 
 $Nations.dist
@@ -32,3 +32,5 @@ Donor | Est_Harju | Est_Hiiu | Est_Ida-Viru | Est_Jarva |
 you | 14.95 | 12.3 | 13.38 | 13.12 |
 
 ![map](https://github.com/vasilipankratov/AncReport/blob/main/001_HarjuEst.png)
+
+The Matrixx_VXXXXX_Eestlane_Harju_1943.pdf file contains a sample output of the R script.

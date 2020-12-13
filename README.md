@@ -7,6 +7,8 @@ and each line shows the number of Biobank Donors (count) of a given nationaluty 
 that are your relatives of a goven degree (degree). The total (total) is showing how many donors in each nation-maakond group there are in hte Biobank.
 For example, line 23 of the test files says that out of 29524 Estonian from Hajumaa in the Biobank 5 are your 4th degree relatives.
 
+The DonorFeedbackBackground_v2.Rdata file contains background info to compare the individual in focus to some average values (like average for nations and for Estonians from different maakonds).
+
 The script basically aggregates this data by a) degree of relatedness, b) nationality, c) maakonds for Estonians and Russians.This creates a list of 6 dataframes:
 (nationalities, Estonians by maakonds, Russians by maakonds) x (distant and close relatives). The counts are also normalized by the total number of donors in each give group. Then the individual data are combined with average Joes for comparison. This results in matrices of the following type
 
@@ -27,6 +29,6 @@ We also plan to use values of sharing with Estonians in different maakond like b
 $Est.dist
 Donor | Est_Harju | Est_Hiiu | Est_Ida-Viru | Est_Jarva |
 ------|-----------|----------|--------------|-----------|
-you | 14.95 | 12.3 | 13.38 | 13.12 | ...
+you | 14.95 | 12.3 | 13.38 | 13.12 |
 
 ![map](https://github.com/vasilipankratov/AncReport/blob/main/001_HarjuEst.png)

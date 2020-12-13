@@ -129,11 +129,10 @@ data_long.list$Est.close <- data_long.list$Est.close[which(data_long.list$Est.cl
 
 #the tables in the data_long.list list are being plotted
 
-
-#was using capping initially, now decided to try non-liner scale
-#data_long.list$Nations.dist[data_long.list$Nations.dist$percentage > 20,]$percentage <- 20
-#data_long.list$Est.dist[data_long.list$Est.dist$percentage > 30,]$percentage <- 30
-#data_long.list$Est.close[data_long.list$Est.close$percentage > 3,]$percentage <- 3
+#capping the values for plotting three plots with same settings, can be changed
+data_long.list$Nations.dist[data_long.list$Nations.dist$percentage > 20,]$percentage <- 20
+data_long.list$Est.dist[data_long.list$Est.dist$percentage > 30,]$percentage <- 30
+data_long.list$Est.close[data_long.list$Est.close$percentage > 3,]$percentage <- 3
 
 p.list <- lapply(c(1,2,5), function(el){
   data_long.list[[el]]$recipient <- factor(data_long.list[[el]]$recipient)

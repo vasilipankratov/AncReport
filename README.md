@@ -34,3 +34,7 @@ you | 14.95 | 12.3 | 13.38 | 13.12 |
 ![map](https://github.com/vasilipankratov/AncReport/blob/main/001_HarjuEst.png)
 
 The Matrixx_VXXXXX_Eestlane_Harju_1943.pdf file contains a sample output of the R script.
+
+#Update 03.01.2021
+Added a file Barplot_VXXXXX_Eestlane_Harju_1943.pdf with the same info as in Matrixx_VXXXXX_Eestlane_Harju_1943.pdf but presented as barplot and an updated R script that produces this file.
+

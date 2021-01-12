@@ -129,34 +129,60 @@ data_long.list$Est.close <- data_long.list$Est.close[which(data_long.list$Est.cl
 
 #the tables in the data_long.list list are being plotted
 
+
 #capping the values for plotting three plots with same settings, can be changed
-data_long.list$Nations.dist[data_long.list$Nations.dist$percentage > 20,]$percentage <- 20
-data_long.list$Est.dist[data_long.list$Est.dist$percentage > 30,]$percentage <- 30
-data_long.list$Est.close[data_long.list$Est.close$percentage > 3,]$percentage <- 3
+#data_long.list$Nations.dist[data_long.list$Nations.dist$percentage > 20,]$percentage <- 20
+#data_long.list$Est.dist[data_long.list$Est.dist$percentage > 30,]$percentage <- 30
+
+cap <- 10*max(data_long.list$Est.close[data_long.list$Est.close$recipient == 'you',]$percentage)
+data_long.list$Est.close[data_long.list$Est.close$percentage > cap,]$percentage <- cap
 
 p.list <- lapply(c(1,2,5), function(el){
-  data_long.list[[el]]$recipient <- factor(data_long.list[[el]]$recipient)
-  N_recipients <- length(levels(data_long.list[[el]]$recipient))
+ 
+  
+  x <- data_long.list[[el]]
+  x$dist[x$dist == 0] <- NA 
+  top <- x[which(x$dist == min(x$dist, na.rm = T)),]$recipient[1]
+  top <- as.character(top)
+  x <- x[x$recipient == 'you' | x$recipient == top | as.vector(x$recipient) == as.vector(x$donor),]
+  x$recipient <- as.vector(x$recipient)
+  
+  x[as.vector(x$recipient) == as.vector(x$donor),]$recipient <- "Avg within group"
+  x$recipient <- factor(x$recipient, levels = c("you", "Avg within group", top))
+  y <- x[x$recipient == "Avg within group" & x$donor == top,]
+  y$recipient <- top
+  x <- rbind.data.frame(x, y)
+  
+  capa <- as.character()
+  if (names(data_long.list)[el] == "Est.close"){
+    capa <- paste("\ncapped at", cap)
+  }
+
+  #N_recipients <- length(levels(data_long.list[[el]]$recipient))
   
   p <- ggplot()+ 
-    geom_rect(data = data.frame(xmin = -Inf,
-                                xmax = Inf,
-                                ymin = N_recipients - 0.5,
-                                ymax = N_recipients + 0.5),
-              aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-              color = "black", fill = 'white', size = 1)+
-    scale_x_discrete()+
-    scale_y_discrete()+
-    geom_point(data = data_long.list[[el]], aes(x=donor, y=recipient, color=percentage, size = percentage), shape=15)+
-    scale_size(range=c(2,8))+
-    scale_color_viridis_c(values= c(0,0.05,0.15,1))+
+    #geom_rect(data = data.frame(xmin = -Inf,
+    #                            xmax = Inf,
+    #                            ymin = N_recipients - 0.5,
+    #                            ymax = N_recipients + 0.5),
+    #          aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+    #          color = "black", fill = 'white', size = 1)+
+    #scale_x_discrete()+
+    #scale_y_discrete()+
+    #geom_point(data = data_long.list[[el]], aes(x=donor, y=recipient, color=percentage, size = percentage), shape=15)+
+    #scale_size(range=c(2,8))+
+    #scale_color_viridis_c(values= c(0,0.05,0.15,1))+
+    geom_col(data = x, aes(x=donor, y=percentage, fill = recipient), position=position_dodge())+
+    scale_fill_npg()+
     theme_cowplot()+
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank(), axis.title.y=element_blank())+
-    ggtitle(paste0(rahvus,', ',maakond,', ',dob, '\n', names(data_long.list)[el]))
+    xlab("reference group from EBB")+
+    ylab(paste0("% of relatives in the group", capa))+
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1), legend.title = element_blank())+
+    ggtitle(paste0(rahvus,', ',maakond,', ',dob, '\n', type))
   return(p)
 })
 
-pdf(paste0("Matrixx_", id, "_",rahvus,'_',maakond,'_',dob, '.pdf'))
+pdf(paste0("BarPlot_", id, "_",rahvus,'_',maakond,'_',dob, '.pdf'), width = 9, height = 6)
 for (i in (1:length(p.list))){
   print(p.list[[i]])
 }
